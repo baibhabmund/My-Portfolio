@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Section from "./Section";
+import { spiralVariants } from "./SpiralReveal";
 import { projects } from "@/data/resume";
 
 export default function Projects() {
@@ -19,10 +20,10 @@ export default function Projects() {
           <motion.a
             key={p.name}
             href={p.href}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={spiralVariants(i % 2 === 0 ? "cw" : "ccw", 75, i * 0.1)}
+            initial="hidden"
+            whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.55, delay: i * 0.1 }}
             whileHover={{ y: -6 }}
             className="glass-strong group relative flex flex-col overflow-hidden rounded-2xl p-7 transition-shadow duration-300 hover:shadow-[0_0_50px_rgba(255,36,64,0.15)]"
           >

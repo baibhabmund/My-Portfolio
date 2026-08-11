@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { ArrowDownRight, Sparkles } from "lucide-react";
+import Image from "next/image";
 import { profile, stats } from "@/data/resume";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -126,14 +127,18 @@ function AvatarFrame() {
             "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
         }}
       >
-        {/* placeholder content — swap this block for a real <Image /> later */}
-        <div className="relative flex h-full w-full items-center justify-center bg-[linear-gradient(145deg,rgba(255,36,64,0.16),rgba(0,0,0,0.4))]">
-          <span className="font-display text-6xl font-bold text-[var(--text)]/90">
-            BM
-          </span>
-          <div className="absolute inset-0 animate-scanline bg-gradient-to-b from-transparent via-[var(--red-primary)]/25 to-transparent" />
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:14px_14px]" />
-        </div>
+        {/* profile image */}
+        <Image
+          src="/images/hero profile.jpg"
+          alt="Baibhab Mund"
+          fill
+          priority
+          className="object-cover"
+          sizes="380px"
+        />
+
+        <div className="absolute inset-0 animate-scanline bg-gradient-to-b from-transparent via-[var(--red-primary)]/25 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:14px_14px]" />
       </div>
 
       {/* pulsing ping ring */}

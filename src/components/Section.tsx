@@ -1,7 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
 import type { ReactNode } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import SpiralReveal from "./SpiralReveal";
 
 export default function Section({
   id,
@@ -18,14 +20,45 @@ export default function Section({
   description?: string;
   children: ReactNode;
 }) {
+  const ref = useRef<HTMLElement>(null);
+  // alternate which way each section "branches" off the central spine
+  const side: 1 | -1 = parseInt(index, 10) % 2 === 0 ? 1 : -1;
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // the section leans in as it enters, sits flat mid-viewport, leans out as
+  // it leaves — like a branch swaying as the spiral vine grows past it
+  const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [side * -3, 0, side * 3]);
+  const x = useTransform(scrollYProgress, [0, 0.5, 1], [side * -22, 0, side * 22]);
+
   return (
-    <section id={id} className="relative px-6 py-24 sm:px-10 lg:px-16">
+    <motion.section
+      ref={ref}
+      id={id}
+      style={{ rotate, x }}
+      className="relative px-6 py-24 sm:px-10 lg:px-16"
+    >
+      {/* branch connector: a short stem reaching toward the central spine */}
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute top-14 hidden h-px w-10 bg-gradient-to-r from-[var(--red-primary)]/70 to-transparent lg:block ${
+          side === 1 ? "left-0 -translate-x-full" : "right-0 translate-x-full rotate-180"
+        }`}
+      />
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute top-[3.35rem] hidden h-2 w-2 -translate-y-1/2 rounded-full bg-[var(--red-bright)] shadow-[0_0_10px_var(--red-bright)] lg:block ${
+          side === 1 ? "left-0 -translate-x-[calc(100%+2.5rem)]" : "right-0 translate-x-[calc(100%+2.5rem)]"
+        }`}
+      />
+
       <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        <SpiralReveal
+          direction="ccw"
+          radius={50}
           className="mb-12 flex flex-col gap-3 border-b border-[var(--glass-border-soft)] pb-6 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
@@ -43,10 +76,10 @@ export default function Section({
               {description}
             </p>
           )}
-        </motion.div>
+        </SpiralReveal>
 
         {children}
       </div>
-    </section>
+    </motion.section>
   );
 }

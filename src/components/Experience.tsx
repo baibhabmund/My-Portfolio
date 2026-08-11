@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Section from "./Section";
+import SpiralReveal from "./SpiralReveal";
 import { experience } from "@/data/resume";
 
 export default function Experience() {
@@ -30,12 +30,11 @@ export default function Experience() {
 
             <div className="relative space-y-8 border-l border-[var(--glass-border-soft)] pl-6 sm:pl-8">
               {job.tracks.map((track, i) => (
-                <motion.div
+                <SpiralReveal
                   key={track.label}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  direction={i % 2 === 0 ? "cw" : "ccw"}
+                  delay={i * 0.12}
+                  radius={55}
                   className="relative"
                 >
                   <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full border-2 border-[var(--red-primary)] bg-[var(--bg)] sm:-left-[37px]" />
@@ -53,7 +52,7 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
-                </motion.div>
+                </SpiralReveal>
               ))}
             </div>
           </div>

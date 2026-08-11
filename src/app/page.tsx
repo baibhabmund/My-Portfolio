@@ -1,5 +1,7 @@
 import Backdrop from "@/components/Backdrop";
 import Nav from "@/components/Nav";
+import ScrollOrbit from "@/components/ScrollOrbit";
+import TreeSpine from "@/components/TreeSpine";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
@@ -14,15 +16,22 @@ export default function Home() {
     <div className="relative flex flex-1 flex-col">
       <Backdrop />
       <Nav />
-      <main className="flex-1">
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <CertsAndEducation />
-        <Contact />
-      </main>
+      <ScrollOrbit />
+      <Hero />
+
+      {/* Everything from here down grows off one continuous spiral vine */}
+      <div className="relative">
+        <TreeSpine />
+        <main className="relative flex-1">
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <CertsAndEducation />
+        </main>
+      </div>
+
+      <Contact />
       <Footer />
     </div>
   );

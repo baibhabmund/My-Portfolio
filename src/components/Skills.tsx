@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Section from "./Section";
+import SpiralReveal from "./SpiralReveal";
 import { skillGroups } from "@/data/resume";
 
 export default function Skills() {
@@ -15,12 +15,11 @@ export default function Skills() {
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group, i) => (
-          <motion.div
+          <SpiralReveal
             key={group.id}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+            direction={i % 2 === 0 ? "cw" : "ccw"}
+            delay={(i % 3) * 0.09}
+            radius={70}
             whileHover={{ y: -4 }}
             className="hud-frame glass rounded-xl p-6 transition-[border-color,box-shadow] duration-300 hover:border-[var(--red-primary)]/40 hover:shadow-[0_0_40px_rgba(255,36,64,0.12)]"
           >
@@ -41,7 +40,7 @@ export default function Skills() {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </SpiralReveal>
         ))}
       </div>
     </Section>

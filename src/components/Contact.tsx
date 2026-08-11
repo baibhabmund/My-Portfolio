@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { spiralVariants } from "./SpiralReveal";
 import { profile } from "@/data/resume";
 
 const links = [
@@ -15,10 +16,10 @@ export default function Contact() {
     <section id="contact" className="relative px-6 py-28 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={spiralVariants("cw", 90, 0)}
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
           className="glass-strong hud-frame glow-red relative overflow-hidden rounded-3xl px-8 py-16 text-center sm:px-16"
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,36,64,0.16),transparent_60%)]" />

@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Award, GraduationCap } from "lucide-react";
 import Section from "./Section";
+import SpiralReveal from "./SpiralReveal";
 import { certifications, education } from "@/data/resume";
 
 export default function CertsAndEducation() {
@@ -18,12 +18,11 @@ export default function CertsAndEducation() {
         {/* Certifications */}
         <div className="space-y-3">
           {certifications.map((c, i) => (
-            <motion.div
+            <SpiralReveal
               key={c.name}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: i * 0.06 }}
+              direction={i % 2 === 0 ? "cw" : "ccw"}
+              delay={i * 0.07}
+              radius={45}
               className="glass flex items-start gap-4 rounded-xl p-4 transition-colors duration-300 hover:border-[var(--red-primary)]/40"
             >
               <div className="mt-0.5 shrink-0 rounded-lg bg-[var(--red-primary)]/10 p-2 text-[var(--red-bright)]">
@@ -37,19 +36,18 @@ export default function CertsAndEducation() {
                   {c.issuer} · {c.date}
                 </p>
               </div>
-            </motion.div>
+            </SpiralReveal>
           ))}
         </div>
 
         {/* Education */}
         <div id="education" className="space-y-4">
           {education.map((e, i) => (
-            <motion.div
+            <SpiralReveal
               key={e.school}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              direction={i % 2 === 0 ? "ccw" : "cw"}
+              delay={i * 0.12}
+              radius={65}
               className="glass-strong hud-frame rounded-xl p-6"
             >
               <div className="flex items-start gap-4">
@@ -66,7 +64,7 @@ export default function CertsAndEducation() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </SpiralReveal>
           ))}
         </div>
       </div>

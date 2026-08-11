@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Database, Smartphone, Code2 } from "lucide-react";
 import Section from "./Section";
+import SpiralReveal from "./SpiralReveal";
 import { profile } from "@/data/resume";
 
 const pillars = [
@@ -33,24 +33,19 @@ export default function About() {
       description="Three disciplines, one operating system: find the messy process, measure it, and rebuild it so it doesn't need babysitting."
     >
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr]">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="text-lg leading-relaxed text-[var(--text-muted)]"
-        >
-          {profile.summary}
-        </motion.p>
+        <SpiralReveal direction="ccw" radius={60}>
+          <p className="text-lg leading-relaxed text-[var(--text-muted)]">
+            {profile.summary}
+          </p>
+        </SpiralReveal>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
           {pillars.map((p, i) => (
-            <motion.div
+            <SpiralReveal
               key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              direction={i % 2 === 0 ? "cw" : "ccw"}
+              delay={i * 0.12}
+              radius={65}
               className="glass hud-frame group flex items-start gap-4 rounded-xl p-5 transition-colors duration-300 hover:border-[var(--red-primary)]/40"
             >
               <div className="rounded-lg bg-[var(--red-primary)]/10 p-2.5 text-[var(--red-bright)] transition-colors duration-300 group-hover:bg-[var(--red-primary)]/20">
@@ -64,7 +59,7 @@ export default function About() {
                   {p.copy}
                 </p>
               </div>
-            </motion.div>
+            </SpiralReveal>
           ))}
         </div>
       </div>
