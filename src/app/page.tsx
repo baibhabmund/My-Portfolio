@@ -20,7 +20,7 @@ export default function Home() {
       <Hero />
 
       {/* Everything from here down grows off one continuous spiral vine */}
-      <div className="relative">
+      <div className="relative spiral-perspective">
         <TreeSpine />
         <main className="relative flex-1">
           <About />

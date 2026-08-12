@@ -47,11 +47,20 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: auto;
+  touch-action: pan-y;
 }
 
 body {
+  min-height: 100%;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
+  overscroll-behavior-y: auto;
+}
+
+.motion-smooth {
+  will-change: transform, opacity, stroke-dashoffset;
 }
 
 ::selection {
@@ -77,6 +86,11 @@ body {
   outline: 2px solid var(--red-bright);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+.spiral-perspective {
+  perspective: 1800px;
+  perspective-origin: 50% 10%;
 }
 
 /* ---------- Glassmorphism panel ---------- */

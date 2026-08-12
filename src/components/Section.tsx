@@ -1,8 +1,8 @@
 "use client";
 
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import type { ReactNode } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import SpiralReveal from "./SpiralReveal";
 
 export default function Section({
@@ -20,26 +20,27 @@ export default function Section({
   description?: string;
   children: ReactNode;
 }) {
-  const ref = useRef<HTMLElement>(null);
   // alternate which way each section "branches" off the central spine
   const side: 1 | -1 = parseInt(index, 10) % 2 === 0 ? 1 : -1;
-
+  const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  // the section leans in as it enters, sits flat mid-viewport, leans out as
-  // it leaves — like a branch swaying as the spiral vine grows past it
-  const rotate = useTransform(scrollYProgress, [0, 0.5, 1], [side * -3, 0, side * 3]);
-  const x = useTransform(scrollYProgress, [0, 0.5, 1], [side * -22, 0, side * 22]);
+  const rotateY = useTransform(scrollYProgress, [0, 0.6, 1], [side * 30, side * 12, 0]);
+  const x = useTransform(scrollYProgress, [0, 0.5, 1], [side * 92, side * 24, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [52, 0]);
+  const z = useTransform(scrollYProgress, [0, 0.8, 1], [-48, -18, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.18, 0.7, 1], [0.05, 0.55, 0.94, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
 
   return (
     <motion.section
       ref={ref}
       id={id}
-      style={{ rotate, x }}
-      className="relative px-6 py-24 sm:px-10 lg:px-16"
+      style={{ opacity, x, y, z, rotateY, scale, transformStyle: "preserve-3d" }}
+      className="relative px-6 py-24 sm:px-10 lg:px-16 motion-smooth"
     >
       {/* branch connector: a short stem reaching toward the central spine */}
       <span
