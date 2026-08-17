@@ -33,7 +33,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-32 pb-20 sm:px-10 lg:px-16"
+      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-36 pb-20 sm:px-10 sm:pt-32 lg:px-16"
     >
       {/* Ambient background glow */}
       <div className="pointer-events-none absolute -right-40 top-1/2 h-[700px] w-[700px] -translate-y-1/2 rounded-full bg-[var(--red-primary)]/10 blur-[140px]" />
@@ -44,8 +44,16 @@ export default function Hero() {
         animate="show"
         className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-[1fr_1.05fr]"
       >
+        {/* ---- Right: avatar in HUD frame ---- */}
+        <motion.div
+          variants={item}
+          className="relative mx-auto order-first w-full max-w-lg lg:order-last"
+        >
+          <AvatarFrame />
+        </motion.div>
+
         {/* ---- Left: copy ---- */}
-        <div>
+        <div className="order-last lg:order-first">
           <motion.div
             variants={item}
             className="mono-tag mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass-fill)] px-3 py-1.5"
@@ -60,7 +68,7 @@ export default function Hero() {
 
           <motion.h1
             variants={item}
-            className="font-display text-[13vw] font-bold leading-[0.95] tracking-tight sm:text-[6.4rem] lg:text-[5.1rem]"
+            className="font-display text-[clamp(2.75rem,13vw,4.5rem)] font-bold leading-[1.02] tracking-tight sm:text-[6.4rem] sm:leading-[0.95] lg:text-[5.1rem]"
           >
             <span className="block text-[var(--text)]">Baibhab</span>
             <span className="text-gradient-red block text-glow">Mund</span>
@@ -129,14 +137,6 @@ export default function Hero() {
             ))}
           </motion.div>
         </div>
-
-        {/* ---- Right: avatar in HUD frame ---- */}
-        <motion.div
-          variants={item}
-          className="relative mx-auto w-full max-w-lg"
-        >
-          <AvatarFrame />
-        </motion.div>
       </motion.div>
     </section>
   );
@@ -194,7 +194,7 @@ function AvatarFrame() {
 
   return (
     <motion.div
-      className="relative mx-auto aspect-square w-full max-w-[480px]"
+      className="relative mx-auto aspect-square w-full max-w-[480px] mt-6 mb-4 sm:mt-0 sm:mb-0"
       animate={{ y: [0, -14, 0] }}
       transition={{
         duration: 6,
@@ -247,12 +247,12 @@ function AvatarFrame() {
       />
 
       {/* Corner readout */}
-      <div className="mono-tag absolute -left-4 top-10 rotate-[-90deg] text-[var(--text-faint)]">
+      <div className="mono-tag absolute -left-2 top-10 rotate-[-90deg] text-[var(--text-faint)] sm:-left-4">
         ID · BM_2026
       </div>
 
       {/* Status chip */}
-      <div className="glass-strong absolute -right-4 top-8 flex flex-col items-start gap-0.5 rounded-2xl border border-[var(--glass-border)] px-4 py-3 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] sm:-right-8">
+      <div className="glass-strong absolute -right-2 top-8 flex flex-col items-start gap-0.5 rounded-2xl border border-[var(--glass-border)] px-3 py-2.5 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] sm:-right-8 sm:px-4 sm:py-3">
         <span className="mono-tag text-[var(--red-bright)]">
           STATUS
         </span>
