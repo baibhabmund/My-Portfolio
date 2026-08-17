@@ -140,7 +140,7 @@ export default function Contact() {
                 duration: 0.25,
                 ease: "easeOut",
               }}
-              className="glass-strong hud-frame glow-red relative w-full max-w-md rounded-3xl p-8"
+              className="glass-strong hud-frame glow-red relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl p-6 sm:p-8"
               onClick={(event) => event.stopPropagation()}
             >
               {/* Close Button */}
